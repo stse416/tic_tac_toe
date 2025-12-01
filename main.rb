@@ -21,6 +21,7 @@ class TTT_Game
     @diag1 = [0, 4, 8]
     @diag2 = [2, 4, 6]
     @win_lines = [@horiz1, @horiz2, @horiz3, @vert1, @vert2, @vert3, @diag1, @diag2]
+    @game_over = false
   end
 
   def show_board
@@ -29,6 +30,10 @@ class TTT_Game
     puts "#{board[3]}|#{board[4]}|#{board[5]}"
     puts "-----------"
     puts "#{board[6]}|#{board[7]}|#{board[8]}"
+  end
+
+  def start_game
+    play_move until @game_over
   end
 
   def play_move
@@ -47,7 +52,6 @@ class TTT_Game
     end
 
     show_board
-    play_move
   end
 
   def check_win?(num)
@@ -61,6 +65,7 @@ class TTT_Game
 
       next unless win
 
+      @game_over = true
       puts "You win!"
       show_board
       return true
@@ -70,4 +75,4 @@ class TTT_Game
 end
 
 game1 = TTT_Game.new
-game1.play_move
+game1.start_game
