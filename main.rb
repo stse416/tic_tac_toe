@@ -65,8 +65,12 @@ class TTT_Game
     return if check_win?(num) == true
 
     @turn_num += 1
-
     show_board
+
+    return unless @turn_num > 8
+
+    puts "Result: Draw"
+    @game_over = true
   end
 
   def valid_move?(num)
