@@ -25,19 +25,37 @@ class TTT_Game
   end
 
   def show_board
+    puts ""
     puts "#{board[0]}|#{board[1]}|#{board[2]}"
     puts "-----------"
     puts "#{board[3]}|#{board[4]}|#{board[5]}"
     puts "-----------"
     puts "#{board[6]}|#{board[7]}|#{board[8]}"
+    puts ""
   end
 
   def start_game
+    puts ""
+    puts " 1 | 2 | 3 "
+    puts "-----------"
+    puts " 4 | 5 | 6 "
+    puts "-----------"
+    puts " 7 | 8 | 9 "
+    puts ""
+    puts "Playable spaces are entered by inputting a number from 1-9."
+    puts "Once input, your symbol will be placed in the respective slot."
+    puts "Player 1 is 'x'. Player 2 is 'o'"
+    puts ""
+
     play_move until @game_over
   end
 
   def play_move
-    puts "Please enter a integer from 1 to 9, with 1 being top left and 9 being bottom right."
+    if (@turn_num % 2).even?
+      puts "Player 1('X') to move:"
+    else
+      puts "Player 2('O') to move:"
+    end
     num = gets.chomp.to_i
 
     return unless valid_move?(num)
