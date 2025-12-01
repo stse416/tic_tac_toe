@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require "pry-byebug"
 
 # puts "   | x | o "
 # puts "-----------"
@@ -37,21 +37,29 @@ class TTT_Game
   end
 
   def play_move
-    puts "Please enter a integer from 0 to 8, with 0 being top left and 8 being bottom right."
-    num = Integer(gets, exception: false)
+    puts "Please enter a integer from 1 to 9, with 1 being top left and 9 being bottom right."
+    num = gets.chomp.to_i
 
-    if !num || num < 0 || num > 8 # rubocop:disable Style/NumericPredicate
-      puts "Not a valid integer."
-    elsif @board[num] != "   "
-      puts "Invalid entry, space already occupied"
-    else
-      @board[num] = (@turn_num % 2).even? ? " x " : " o "
-      return if check_win?(num) == true
+    return unless valid_move?(num)
 
-      @turn_num += 1
-    end
+    num -= 1
+    @board[num] = (@turn_num % 2).even? ? " x " : " o "
+    return if check_win?(num) == true
+
+    @turn_num += 1
 
     show_board
+  end
+
+  def valid_move?(num)
+    if num < 1 || num > 9
+      puts "Not a valid integer."
+      return false
+    elsif @board[num - 1] != "   "
+      puts "Invalid entry, space already occupied"
+      return false
+    end
+    true
   end
 
   def check_win?(num)
