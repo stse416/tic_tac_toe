@@ -28,4 +28,48 @@ describe Board do
       end
     end
   end
+
+  describe "#check_win?" do
+    context "Given no filled lines" do
+      subject(:not_filled) { described_class.new("   ", "   ", "   ", "   ", " X ") }
+
+      it "returns false" do
+        expect(not_filled.check_win?(4)).to be false
+      end
+    end
+
+    context "Given a filled but not winning" do
+      context "horizontal line" do
+        subject(:blocked_horiz) { described_class.new("   ", "   ", "   ", " O ", " X ", " O ") }
+
+        it "it returns false" do
+          expect(blocked_horiz.check_win?(5)).to be false
+        end
+      end
+
+      context "vertical line" do
+        subject(:blocked_vert) { described_class.new("   ", " O ", "   ", "   ", " X ", "   ", "   ", " X ", "   ") }
+
+        it "returns false" do
+          expect(blocked_vert.check_win?(1)).to be false
+        end
+      end
+
+      context "diagonal line" do
+        subject(:blocked_diag) { described_class.new("   ", "   ", " X ", "   ", " X ", "   ", " O ", "   ", "   ") }
+
+        it "returns false" do
+          expect(blocked_diag.check_win?(6)).to be false
+        end
+      end
+    end
+
+    context "Given a filled winning line" do
+      subject(:winning_move) { described_class.new("   ", "   ", " X ", "   ", "   ", " X ", "   ", "   ", " X ") }
+      it "it returns true" do
+        expect(winning_move).to receive(:puts).with("You win!")
+        expect(winning_move.check_win?(2)).to be true
+      end
+    end
+  end
 end
