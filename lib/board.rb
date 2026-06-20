@@ -1,8 +1,9 @@
 class Board
   attr_reader :board
 
-  def initialize
-    @board = Array.new(9, "   ")
+  def initialize(one = "   ", two = "   ", three = "   ", four = "   ", five = "   ",
+                 six = "   ", seven = "   ", eight = "   ", nine = "   ")
+    @board = [one, two, three, four, five, six, seven, eight, nine]
     @horiz1 = [0, 1, 2]
     @horiz2 = [3, 4, 5]
     @horiz3 = [6, 7, 8]
