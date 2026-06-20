@@ -12,17 +12,19 @@ describe Board do
         end
       end
 
-      context "Given an invalid space" do
-        it "returns false" do
-          expect(board.valid_move?(0)).to be false
-        end
-      end
-
-      context "Given a non-empty space" do
+      context "For a non-empty space" do
         subject(:non_empty) { described_class.new(" X ") }
         it "returns false" do
+          expect(non_empty).to receive(:puts).with("Invalid entry, space already occupied")
           expect(non_empty.valid_move?(1)).to be false
         end
+      end
+    end
+
+    context "Given an invalid space" do
+      it "returns false" do
+        expect(board).to receive(:puts).with("Not a valid integer.")
+        expect(board.valid_move?(0)).to be false
       end
     end
   end
