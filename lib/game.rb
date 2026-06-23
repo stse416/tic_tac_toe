@@ -38,7 +38,7 @@ class Game
 
     @turn_num += 1
     @game_board.show_board
-    @game_over = true if @game_board.check_win?(num) == true
+    @game_over = @game_board.check_win?(num)
 
     return unless @turn_num > 8 && @game_over == false
 
